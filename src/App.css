@@ -1,0 +1,19 @@
+
+.firstRow{
+  gap: 20px;
+  align-items: center;
+}
+input{
+  overflow: scroll;
+}
+section{
+  padding: 15px;
+}
+.containerMain{
+  width: 70%;
+}
+@media screen and (max-width: 540px) {
+  .containerMain{
+    width: 100%;
+  }
+}
