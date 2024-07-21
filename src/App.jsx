@@ -68,9 +68,9 @@ function App() {
                     />
                     <hr className="h-1 bg-sky-400" />
                   </div>
-                  <div className="addBtn mb-4 w-16">
-                    <button className="px-3 py-2.5 rounded-full bg-sky-500"  onClick={handleAddItem}>
-                      <img src="/Plus.svg" className="w-6 h-6" alt="" />
+                  <div className="addBtn  w-16 h-16">
+                    <button className="px-2.5 py-2.5 rounded-full bg-sky-500"  onClick={handleAddItem}>
+                      <img src="/Plus.svg" className="w-4 h-4" alt="" />
                     </button>
                   </div>
                 </div>
@@ -92,10 +92,10 @@ function App() {
             <hr className="mt-2 mb-2" />
             {data.map((item, index) => (
               <div className="my-1" key={index}>
-                <div className="row flex">
+                <div className="row flex items-center">
                   <div className="doneBtn w-12">
                     <button className="px-1.5 py-1  rounded-full bg-sky-500">
-                      <img src="/Done.svg" className="w-6 h-6" alt="" />
+                      <img src="/Done.svg" className="w-3 h-4" alt="" />
                     </button>
                   </div>
                   <div className="input w-full text-center m-auto">
@@ -103,12 +103,12 @@ function App() {
                   </div>
                   <div className="editBtn">
                     <button className="px-2 py-2 ">
-                      <img src="/Edit.svg" className="w-6 h-6" alt="" />
+                      <img src="/Edit.svg" className="w-8 h-8" alt="" />
                     </button>
                   </div>
                   <div className="dellBtn">
                     <button className="px-2 py-2 "    onClick={() => handleDeleteItem(index)}>
-                      <img src="/Trash Can.svg" className="w-6 h-6" alt="" />
+                      <img src="/Trash Can.svg" className="w-8 h-8" alt="" />
                     </button>
                   </div>
                 </div>
