@@ -7,15 +7,15 @@ function App() {
 
   const [inputValue, setInputValue] = useState("");
 
-  
-
+  // Edit Section
   const [data ,setData] = useState([
     {
       description: "i will buy groceris",
     },
     {
       description: "i ought to pay Bills",
-    },
+    }
+
   ])
 
   const handleChange = (event) => {
@@ -34,6 +34,18 @@ function App() {
     setData(newData);
   };
 
+  // Confirm List
+  const [action ,setAction] = useState([
+    {
+      descript: "I'm a Graphic Designer ",
+    }
+
+  ])
+
+  const handleCnfrmDelete = (index) => {
+    const newAction = action.filter((_, i) => i !== index);
+    setAction(newAction);
+  };
 
   return (
     <>
@@ -68,6 +80,7 @@ function App() {
                     />
                     <hr className="h-1 bg-sky-400" />
                   </div>
+                  {/* Add Button */}
                   <div className="addBtn  w-16 h-16">
                     <button className="px-2.5 py-2.5 rounded-full bg-sky-500"  onClick={handleAddItem}>
                       <img src="/Plus.svg" className="w-4 h-4" alt="" />
@@ -127,23 +140,21 @@ function App() {
               <strong class="addItems ml-16">TO-DO LIST</strong>
             </div>
 
-            {/* <hr className="mt-2 mb-2" />
-            {data.map((item, index) => (
+            {action.map((item, index) => (
               <div className="my-1" key={index}>
-                <div className="row flex">
+                <div className="row flex items-center">
                   <div className="input w-full text-center m-auto">
-                    {item.description}
+                    {item.descript}
                   </div>
                   <div className="dellBtn">
-                    <button className="px-2 py-2 "    onClick={() => handleDeleteItem(index)}>
-                      <img src="/Trash Can.svg" className="w-6 h-6" alt="" />
+                    <button className="px-2 py-2 "    onClick={() => handleCnfrmDelete(index)}>
+                      <img src="/Trash Can.svg" className="w-8 h-8" alt="" />
                     </button>
                   </div>
                 </div>
                 <hr className=" my-2"/>
-                
               </div>
-            ))} */}
+            ))}
           </div>
         </section>
       </div>
