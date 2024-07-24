@@ -10,12 +10,11 @@ function App() {
   // Edit Section
   const [data ,setData] = useState([
     {
-      description: "i will buy groceris",
+      description: "I will buy groceris",
     },
     {
-      description: "i ought to pay Bills",
+      description: "Today I'll learn React hooks",
     }
-
   ])
 
   const handleChange = (event) => {
@@ -39,8 +38,14 @@ function App() {
     {
       descript: "I'm a Graphic Designer ",
     }
-
   ])
+
+  const handleDoneItem = (index) => {
+    const itemToMove = data[index];
+    const newData = data.filter((_, i) => i !== index);
+    setData(newData);
+    setAction([...action, { descript: itemToMove.description }]);
+  };
 
   const handleCnfrmDelete = (index) => {
     const newAction = action.filter((_, i) => i !== index);
@@ -107,7 +112,7 @@ function App() {
               <div className="my-1" key={index}>
                 <div className="row flex items-center">
                   <div className="doneBtn w-12">
-                    <button className="px-1.5 py-1  rounded-full bg-sky-500">
+                    <button className="px-1.5 py-1  rounded-full bg-sky-500" onClick={() => handleDoneItem(index)}>
                       <img src="/Done.svg" className="w-3 h-4" alt="" />
                     </button>
                   </div>
