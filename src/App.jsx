@@ -2,20 +2,20 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import Prompt from "./Components/Prompts/Prompt"; // Corrected import
 
 function App() {
-
   const [inputValue, setInputValue] = useState("");
 
   // Edit Section
-  const [data ,setData] = useState([
+  const [data, setData] = useState([
     {
-      description: "I will buy groceris",
+      description: "I will buy groceries",
     },
     {
       description: "Today I'll learn React hooks",
-    }
-  ])
+    },
+  ]);
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
@@ -34,11 +34,11 @@ function App() {
   };
 
   // Confirm List
-  const [action ,setAction] = useState([
+  const [action, setAction] = useState([
     {
       descript: "I'm a Graphic Designer ",
-    }
-  ])
+    },
+  ]);
 
   const handleDoneItem = (index) => {
     const itemToMove = data[index];
@@ -52,6 +52,29 @@ function App() {
     setAction(newAction);
   };
 
+  // Edit list
+  const [isPromptOpen, setIsPromptOpen] = useState(false);
+  const [currentItemIndex, setCurrentItemIndex] = useState(null);
+  const [editValue, setEditValue] = useState("");
+
+  const handleEdit = (index) => {
+    setCurrentItemIndex(index);
+    setEditValue(data[index].description);
+    setIsPromptOpen(true);
+  };
+
+  const handleClosePrompt = () => {
+    setIsPromptOpen(false);
+    setEditValue("");
+  };
+
+  const handleConfirmEdit = () => {
+    const updatedData = [...data];
+    updatedData[currentItemIndex].description = editValue;
+    setData(updatedData);
+    handleClosePrompt();
+  };
+
   return (
     <>
       <div className="">
@@ -61,24 +84,24 @@ function App() {
           </nav>
         </header>
         <section>
-          <div className=" containerMain px-4  mx-auto relative my-16 shadow mb-5 bg-body rounded">
+          <div className="containerMain px-4 mx-auto relative my-16 shadow mb-5 bg-body rounded">
             <div className="row flex py-3 px-4">
-              <div class="col-sm-1 w-16 h-16 p-4 firstIcon rounded-md absolute -top-6 left-4 bg-sky-500">
+              <div className="col-sm-1 w-16 h-16 p-4 firstIcon rounded-md absolute -top-6 left-4 bg-sky-500">
                 <img src="/notepad.svg" className="w-8 h-8" alt="" />
               </div>
-              <strong class="addItems ml-16">ADD ITEM</strong>
+              <strong className="addItems ml-16">ADD ITEM</strong>
             </div>
             <hr className="mt-2" />
-            <div className="flex py-4 gap-8 ">
+            <div className="flex py-4 gap-8">
               <div className="inputSection w-full">
-                <h6 class="font-bold text-sky-400 p-1">
-                  What do you want to do ?
+                <h6 className="font-bold text-sky-400 p-1">
+                  What do you want to do?
                 </h6>
                 <div className="firstRow flex w-full">
                   <div className="input w-full">
                     <input
                       type="text"
-                      class="w-full form-control rounded-0 border-0 outline-0"
+                      className="w-full form-control rounded-0 border-0 outline-0"
                       placeholder="Enter text here."
                       value={inputValue}
                       onChange={handleChange}
@@ -86,25 +109,35 @@ function App() {
                     <hr className="h-1 bg-sky-400" />
                   </div>
                   {/* Add Button */}
-                  <div className="addBtn  w-16 h-16">
-                    <button className="px-2.5 py-2.5 rounded-full bg-sky-500"  onClick={handleAddItem}>
+                  <div className="addBtn w-16 h-16">
+                    <button
+                      className="px-2.5 py-2.5 rounded-full bg-sky-500"
+                      onClick={handleAddItem}
+                    >
                       <img src="/Plus.svg" className="w-4 h-4" alt="" />
                     </button>
                   </div>
                 </div>
-                
               </div>
-              
             </div>
           </div>
 
+          {isPromptOpen && (
+            <Prompt
+              editValue={editValue}
+              setEditValue={setEditValue}
+              handleConfirmEdit={handleConfirmEdit}
+              handleClosePrompt={handleClosePrompt}
+            />
+          )}
+
           {/* Row 2 */}
-          <div className="containerMain px-4  mx-auto relative my-16 shadow mb-5 bg-body rounded">
+          <div className="containerMain px-4 mx-auto relative my-16 shadow mb-5 bg-body rounded">
             <div className="row flex py-3 px-4">
-              <div class="col-sm-1 w-16 h-16 p-4 firstIcon rounded-md absolute -top-6 left-4 bg-amber-500">
+              <div className="col-sm-1 w-16 h-16 p-4 firstIcon rounded-md absolute -top-6 left-4 bg-amber-500">
                 <img src="/list.svg" className="w-8 h-8" alt="" />
               </div>
-              <strong class="addItems ml-16">TO-DO LIST</strong>
+              <strong className="addItems ml-16">TO-DO LIST</strong>
             </div>
 
             <hr className="mt-2 mb-2" />
@@ -112,7 +145,10 @@ function App() {
               <div className="my-1" key={index}>
                 <div className="row flex items-center">
                   <div className="doneBtn w-12">
-                    <button className="px-1.5 py-1  rounded-full bg-sky-500" onClick={() => handleDoneItem(index)}>
+                    <button
+                      className="px-1.5 py-1 rounded-full bg-sky-500"
+                      onClick={() => handleDoneItem(index)}
+                    >
                       <img src="/Done.svg" className="w-3 h-4" alt="" />
                     </button>
                   </div>
@@ -120,29 +156,34 @@ function App() {
                     {item.description}
                   </div>
                   <div className="editBtn">
-                    <button className="px-2 py-2 ">
+                    <button
+                      className="px-2 py-2"
+                      onClick={() => handleEdit(index)}
+                    >
                       <img src="/Edit.svg" className="w-8 h-8" alt="" />
                     </button>
                   </div>
                   <div className="dellBtn">
-                    <button className="px-2 py-2 "    onClick={() => handleDeleteItem(index)}>
+                    <button
+                      className="px-2 py-2"
+                      onClick={() => handleDeleteItem(index)}
+                    >
                       <img src="/Trash Can.svg" className="w-8 h-8" alt="" />
                     </button>
                   </div>
                 </div>
-                <hr className=" my-2"/>
-                
+                <hr className="my-2" />
               </div>
             ))}
           </div>
 
-          {/* Row 3/ */}
-          <div className="containerMain px-4  mx-auto relative my-16 shadow mb-5 bg-body rounded">
+          {/* Row 3 */}
+          <div className="containerMain px-4 mx-auto relative my-16 shadow mb-5 bg-body rounded">
             <div className="row flex py-3 px-4">
-              <div class="col-sm-1 w-16 h-16 p-4 firstIcon rounded-md absolute -top-6 left-4 bg-green-500">
+              <div className="col-sm-1 w-16 h-16 p-4 firstIcon rounded-md absolute -top-6 left-4 bg-green-500">
                 <img src="/message.svg" className="w-8 h-8" alt="" />
               </div>
-              <strong class="addItems ml-16">TO-DO LIST</strong>
+              <strong className="addItems ml-16">TO-DO LIST</strong>
             </div>
 
             {action.map((item, index) => (
@@ -152,12 +193,15 @@ function App() {
                     {item.descript}
                   </div>
                   <div className="dellBtn">
-                    <button className="px-2 py-2 "    onClick={() => handleCnfrmDelete(index)}>
+                    <button
+                      className="px-2 py-2"
+                      onClick={() => handleCnfrmDelete(index)}
+                    >
                       <img src="/Trash Can.svg" className="w-8 h-8" alt="" />
                     </button>
                   </div>
                 </div>
-                <hr className=" my-2"/>
+                <hr className="my-2" />
               </div>
             ))}
           </div>

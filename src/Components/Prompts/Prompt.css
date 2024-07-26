@@ -1,0 +1,61 @@
+.prompt{
+    width: 400px;
+    height: 200px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border: 1px solid rgb(56 189 248);
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    z-index: 99;
+}
+
+.title{
+    font-weight: 600;
+}
+
+input{
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+
+.btn{
+    display: flex;
+    gap: 20px;
+    float: right;
+}
+
+.cnfrmBtn{
+    padding: 6px 12px;
+    color: white;
+    background-color: #0000ff;
+    border-radius: 5px;
+}
+.cnlBtn{
+    padding: 6px 12px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+  @media screen and (max-width: 720px) {
+    .prompt{
+      max-width: 400px;
+      padding: 15px;
+      top: 40%;
+      left: 25%;
+    }
+  }
+
+  @media screen and (max-width: 540px) {
+    .prompt{
+      max-width: 300px;
+      padding: 15px;
+      top: 30%;
+      left: 10%;
+    }
+  }
